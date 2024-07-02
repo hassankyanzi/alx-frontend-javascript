@@ -1,19 +1,10 @@
 export default function cleanSet(set, startString) {
-  const list = [];
+  if (!startString || !startString.length || typeof startString !== 'string') return '';
 
-  if (
-    typeof set !== 'object'
-    || typeof startString !== 'string'
-    || startString.length === 0
-  ) {
-    return '';
-  }
+  let finalString = '';
+  set.forEach((element) => {
+    if (element && element.startsWith(startString)) finalString += `${element.slice(startString.length)}-`;
+  });
 
-  for (const item of set) {
-    if (item && item.startsWith(startString)) {
-      list.push(item.slice(startString.length));
-    }
-  }
-
-  return list.join('-');
+  return finalString.slice(0, finalString.length - 1);
 }
